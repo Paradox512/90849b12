@@ -40,10 +40,19 @@ export async function updateCallById(id, is_archived) {
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
-        const json = await response.json();
-        return json;
     } catch(error) {
         console.error(error.message);
     }
 }
 
+export async function resetAllCalls() {
+    try {
+        const url = `${BASE_URL}/reset`;
+        const response = await fetch(url, { method: "PATCH" });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+    } catch(error) {
+        console.error(error.message);
+    }
+}
