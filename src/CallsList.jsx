@@ -21,7 +21,7 @@ const CallList = () => {
   return (
     <Stack spacing={2}>
       {calls.map((call) => (
-        <Call {...call}/>
+        <Call key={call.id} {...call}/>
       ))}
     </Stack>
   );
