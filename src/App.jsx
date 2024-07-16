@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Header from './Header.jsx';
-import CallList from './CallsList.jsx';
 import Grid from '@mui/material/Grid';
+import CallsViewer from './CallsViewer.jsx';
 
 const App = () => {
   return (
@@ -17,7 +17,7 @@ const App = () => {
         <Header/>
       </Grid>
       <Grid item>
-        <CallList/>
+        <CallsViewer/>
       </Grid>
     </Grid>
   );

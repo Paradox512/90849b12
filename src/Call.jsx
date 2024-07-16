@@ -23,8 +23,6 @@ const Call = ({ id, created_at, to, call_type }) => {
 
   const call_time = new Date(created_at);
 
-  console.log(call_time);
-
   return (
     <Card>
       <Grid
