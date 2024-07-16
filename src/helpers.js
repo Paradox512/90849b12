@@ -29,3 +29,21 @@ export async function getCallById(id) {
     }
 }
 
+export async function updateCallById(id, is_archived) {
+    try {
+        const url = `${BASE_URL}/activities/${id}`;
+        const response = await fetch(url, {
+            method: "PATCH",
+            body: JSON.stringify({ is_archived }),
+            headers: { "Content-Type": "application/json" }
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+        const json = await response.json();
+        return json;
+    } catch(error) {
+        console.error(error.message);
+    }
+}
+
