@@ -1,11 +1,12 @@
-import Call from "./Call.jsx";
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
+import CallGroup from "./CallGroup.jsx";
 
 const CallList = ({calls}) => {
 
   let body = [];
   let previous_date = null;
+  let group = [];
 
   calls.forEach((call) => {
     const call_date = new Date(call.created_at);
@@ -20,10 +21,18 @@ const CallList = ({calls}) => {
       || call_date.getFullYear() !== previous_date.getFullYear()
     ){
       previous_date = call_date
+      if(group.length > 0){
+        body.push(<CallGroup calls={group}/>);
+        group = [];
+      }
       body.push(<Divider>{call_date.toLocaleDateString("en-US", options)}</Divider>);
     }
-    body.push(<Call key={call.id} {...call}/>);
+    group.push(call);
   });
+  if(group.length > 0){
+    body.push(<CallGroup calls={group}/>);
+    group = [];
+  }
 
   return (
     <Stack

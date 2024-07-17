@@ -1,7 +1,9 @@
-import Card from '@mui/material/Card';
 import CallIcon from './CallIcon.jsx';
-import Grid from '@mui/material/Grid';
-
+import Stack from '@mui/material/Stack';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
 const Call = ({ id, created_at, from, to, call_type }) => {
 
@@ -37,19 +39,19 @@ const Call = ({ id, created_at, from, to, call_type }) => {
   const call_time = new Date(created_at);
 
   return (
-    <Card>
-      <Grid
-        container
-        spacing={2}
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Grid item><CallIcon call_type={call_type}/></Grid>
-        <Grid item>{formatPhoneNumber(to)}</Grid>
-        <Grid item>{getTimeOfDay(call_time)}</Grid>
-      </Grid>
-    </Card>
+    <ListItem sx={{ p: 0 }}>
+      <ListItemButton>
+        <Stack
+          sx={{ width: "100%" }}
+          direction="row"
+          justifyContent="space-between"
+        >
+          <ListItemIcon><CallIcon call_type={call_type}/></ListItemIcon>
+          <ListItemText primary={formatPhoneNumber(to)}/>
+          <ListItemText primary={getTimeOfDay(call_time)}/>
+        </Stack>
+      </ListItemButton>
+    </ListItem>
   );
 };
 
