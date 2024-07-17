@@ -2,17 +2,9 @@ import React, { useEffect, useState } from 'react';
 import CallList from './CallsList.jsx';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { getAllCalls } from './helpers.js';
+import { getAllCalls, updateCallById } from './helpers.js';
 import { Stack } from '@mui/material';
-// import { styled } from '@mui/material/styles';
-
-// styled()
-
-// const tabsStyle = {
-//   "& > .MuiTab-root.Mui-selected" : {
-
-//   }
-// };
+import ArchiveUnarchiveAllButton from './ArchiveUnarchiveAllButton.jsx';
 
 const CallsViewer = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -46,20 +38,39 @@ const CallsViewer = () => {
     );
   };
 
+  const changeAllArchiveStatus = async () => {
+    const promises = calls.map((call) => updateCallById(call.id, !call.is_archived));
+    await Promise.all(promises);
+    setCalls((current_calls) => 
+      current_calls.map((call) => {
+        return {
+          ...call,
+          is_archived: !call.is_archived
+        };
+      })
+    );
+  };
+
   return (
     <Stack
       spacing={2}
       direction="column"
       alignItems="center"
-      sx={{ width: 350 }}
+      sx={{ width: 400 }}
     >
-      <Tabs
-        value={activeTab}
-        onChange={(_, newValue) => setActiveTab(newValue)}
-      >
-        <Tab value="all" label="All" />
-        <Tab value="archived" label="Archived" />
-      </Tabs>
+      <Stack direction="row" justifyContent="space-between" sx={{ width: "100%" }}>
+        <Tabs
+          value={activeTab}
+          onChange={(_, newValue) => setActiveTab(newValue)}
+        >
+          <Tab value="all" label="All" />
+          <Tab value="archived" label="Archived" />
+        </Tabs>
+        <ArchiveUnarchiveAllButton
+          is_archived={activeTab==="archived"}
+          onClick={changeAllArchiveStatus}
+        />
+      </Stack>
       <CallList
         calls={calls.filter((call) => (activeTab==="all") === !call.is_archived)}
         onChangeArchiveStatus={changeArchiveStatus}
