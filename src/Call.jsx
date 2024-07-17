@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { IconButton, Typography } from '@mui/material';
 import { updateCallById } from './helpers.js';
 
-const Call = ({ id, created_at, from, to, direction, call_type, is_archived, onChangeArchiveStatus }) => {
+const Call = ({ id, created_at, from, to, direction, duration, call_type, is_archived, via, onChangeArchiveStatus }) => {
 
   const [expanded, setExpanded] = useState(false);
 
@@ -45,6 +45,19 @@ const Call = ({ id, created_at, from, to, direction, call_type, is_archived, onC
     return format;
   };
 
+  const formatCallDuration = (callDuration) => {
+    const seconds = callDuration % 60;
+    callDuration = (callDuration - seconds) / 60;
+    const minutes = callDuration % 60;
+    callDuration = (callDuration - minutes) / 60;
+    const hours = callDuration;
+
+    let format = `${seconds} seconds`;
+    if(minutes > 0) format = `${minutes} minutes, ${format}`;
+    if(hours > 0) format = `${hours} hours, ${format}`;
+    return format;
+  };
+
   const changeArchiveStatus = async () => {
     try {
       await updateCallById(id, !is_archived);
@@ -74,6 +87,19 @@ const Call = ({ id, created_at, from, to, direction, call_type, is_archived, onC
             <Typography>{getTimeOfDay(call_time)}</Typography>
           </Stack>
           {expanded &&
+          <>
+            <Stack direction="column" sx={{width: "100%"}} alignItems="center">
+            {call_type === "answered" &&
+              <Typography variant="body2">
+                {(direction === "inbound" ? "Incoming" : "Outgoing") + " call, " + formatCallDuration(duration)}
+              </Typography>
+            }
+            {call_type === "missed" &&
+              <Typography variant="body2">Missed call</Typography>
+            }
+            <Typography variant="body2">From {formatPhoneNumber(from)}</Typography>
+            <Typography variant="body2">Via {formatPhoneNumber(via)}</Typography>
+            </Stack>
             <Stack direction="row" sx={{width: "100%"}} justifyContent="space-evenly">
               <IconButton disabled><PhoneIcon/></IconButton>
               <IconButton disabled><ChatBubbleIcon/></IconButton>
@@ -82,6 +108,7 @@ const Call = ({ id, created_at, from, to, direction, call_type, is_archived, onC
                 {is_archived ? <Unarchive/> : <ArchiveIcon/>}
               </IconButton>
             </Stack>
+          </>
           }
         </Stack>
       </ListItemButton>
