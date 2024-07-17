@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import Header from './Header.jsx';
 import Grid from '@mui/material/Grid';
@@ -23,6 +23,8 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+const container = document.getElementById('app');
+const root = createRoot(container);
+root.render(<App/>);
 
 export default App;
