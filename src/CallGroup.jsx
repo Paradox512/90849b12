@@ -2,8 +2,7 @@ import Call from "./Call.jsx";
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 
-const CallGroup = ({calls}) => {
-
+const CallGroup = ({calls, onChangeArchiveStatus}) => {
   return (
     <List
       sx={{
@@ -15,7 +14,7 @@ const CallGroup = ({calls}) => {
     >
       {calls.map((call, index) => 
         <>
-          <Call {...call}/>
+          <Call {...call} onChangeArchiveStatus={onChangeArchiveStatus}/>
           {index+1 !== calls.length && <Divider component="li" />}
         </>
       )}

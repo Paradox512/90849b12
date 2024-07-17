@@ -2,7 +2,7 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import CallGroup from "./CallGroup.jsx";
 
-const CallList = ({calls}) => {
+const CallList = ({calls, onChangeArchiveStatus}) => {
 
   let body = [];
   let previous_date = null;
@@ -22,7 +22,7 @@ const CallList = ({calls}) => {
     ){
       previous_date = call_date
       if(group.length > 0){
-        body.push(<CallGroup calls={group}/>);
+        body.push(<CallGroup calls={group} onChangeArchiveStatus={onChangeArchiveStatus}/>);
         group = [];
       }
       body.push(<Divider>{call_date.toLocaleDateString("en-US", options)}</Divider>);

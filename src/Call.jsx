@@ -7,10 +7,12 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import ArchiveIcon from '@mui/icons-material/Archive';
+import Unarchive from '@mui/icons-material/Unarchive';
 import { useState } from 'react';
 import { IconButton, Typography } from '@mui/material';
+import { updateCallById } from './helpers.js';
 
-const Call = ({ id, created_at, from, to, call_type }) => {
+const Call = ({ id, created_at, from, to, call_type, is_archived, onChangeArchiveStatus }) => {
 
   const [expanded, setExpanded] = useState(false);
 
@@ -43,6 +45,16 @@ const Call = ({ id, created_at, from, to, call_type }) => {
     return format;
   };
 
+  const changeArchiveStatus = async () => {
+    try {
+      await updateCallById(id, !is_archived);
+      onChangeArchiveStatus(id);
+      setExpanded(false);
+    } catch(error) {
+      console.error(error);
+    }
+  };
+
   const call_time = new Date(created_at);
 
   return (
@@ -62,7 +74,9 @@ const Call = ({ id, created_at, from, to, call_type }) => {
               <IconButton disabled><PhoneIcon/></IconButton>
               <IconButton disabled><ChatBubbleIcon/></IconButton>
               <IconButton disabled><VideocamIcon/></IconButton>
-              <IconButton onClick={(e) => { e.stopPropagation() }}><ArchiveIcon/></IconButton>
+              <IconButton onClick={(e) => { e.stopPropagation(); changeArchiveStatus(); }}>
+                {is_archived ? <Unarchive/> : <ArchiveIcon/>}
+              </IconButton>
             </Stack>
           }
         </Stack>

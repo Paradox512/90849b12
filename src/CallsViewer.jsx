@@ -28,6 +28,15 @@ const CallsViewer = () => {
     fetchData();
   }, []);
 
+  const changeArchiveStatus = (callId) => {
+    setCalls((current_calls) =>
+      current_calls.map((call) => {
+        if(call.id !== callId) return call;
+        return {...call, is_archived: !call.is_archived};
+      })
+    );
+  };
+
   return (
     <Stack
       spacing={2}
@@ -42,7 +51,10 @@ const CallsViewer = () => {
         <Tab value="all" label="All Calls" />
         <Tab value="archived" label="Archived Calls" />
       </Tabs>
-      <CallList calls={calls.filter((call) => (activeTab==="all") === !call.is_archived)}/>
+      <CallList
+        calls={calls.filter((call) => (activeTab==="all") === !call.is_archived)}
+        onChangeArchiveStatus={changeArchiveStatus}
+      />
     </Stack>
   );
 };
