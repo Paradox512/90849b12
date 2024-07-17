@@ -13,6 +13,13 @@ const CallsViewer = () => {
     async function fetchData(){
       try {
         const response = await getAllCalls();
+        response.sort((a, b) => {
+          const time_a = new Date(a.created_at).getTime();
+          const time_b = new Date(b.created_at).getTime();
+          if(time_a > time_b) return -1;
+          else if(time_a < time_b) return 1;
+          return 0;
+        });
         setCalls(response);
       } catch(error) {
         console.error(error);
@@ -20,10 +27,6 @@ const CallsViewer = () => {
     }
     fetchData();
   }, []);
-
-  useEffect(() => {
-
-  }, [activeTab]);
 
   return (
     <Grid
