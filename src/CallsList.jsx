@@ -47,7 +47,18 @@ const CallList = ({calls, onChangeArchiveStatus}) => {
       alignItems="stretch"
       sx={{ width: "100%" }}
     >
-      {body}
+      {body.length > 0 && body}
+      {body.length === 0 &&
+        <Typography
+          variant="body"
+          sx={{
+            textAlign: "center",
+            padding: "10px"
+          }}
+        >
+          No calls to display
+        </Typography>
+      }
     </Stack>
   );
 };
