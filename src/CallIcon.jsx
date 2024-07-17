@@ -7,9 +7,9 @@ import CallReceivedIcon from '@mui/icons-material/CallReceived';
 const CallIcon = ({ call_type, direction }) => {
   switch(call_type){
     case "missed":
-      return direction === "outbound" ? <CallMissedOutgoingIcon/> : <CallMissedIcon/>;
+      return direction === "outbound" ? <CallMissedOutgoingIcon color="error"/> : <CallMissedIcon color="error"/>;
     case "answered":
-      return direction === "outbound" ? <CallMadeIcon/> : <CallReceivedIcon/>;
+      return direction === "outbound" ? <CallMadeIcon color="success"/> : <CallReceivedIcon color="success"/>;
     case "voicemail":
       return <VoicemailIcon/>;
   }

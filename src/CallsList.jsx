@@ -1,6 +1,7 @@
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import CallGroup from "./CallGroup.jsx";
+import { Typography } from '@mui/material';
 
 const CallList = ({calls, onChangeArchiveStatus}) => {
 
@@ -25,7 +26,16 @@ const CallList = ({calls, onChangeArchiveStatus}) => {
         body.push(<CallGroup calls={group} onChangeArchiveStatus={onChangeArchiveStatus}/>);
         group = [];
       }
-      body.push(<Divider>{call_date.toLocaleDateString("en-US", options)}</Divider>);
+      body.push(
+        <Divider>
+          <Typography sx={{
+            fontFamily: "Rubik",
+            color: "GrayText"
+          }}>
+            {call_date.toLocaleDateString("en-US", options)}
+          </Typography>
+        </Divider>
+      );
     }
     group.push(call);
   });

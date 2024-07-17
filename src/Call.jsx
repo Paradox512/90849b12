@@ -59,14 +59,18 @@ const Call = ({ id, created_at, from, to, direction, call_type, is_archived, onC
 
   return (
     <ListItem
-      sx={{ p: 0, width: "100%" }}
+      sx={{
+        p: 0,
+        width: "100%",
+        // fontFamily: "Roboto, Helvetica, Arial, sans-serif"
+      }}
       onClick={() => setExpanded(!expanded)}
     >
       <ListItemButton>
         <Stack sx={{width: "100%"}} spacing={2}>
           <Stack direction="row" sx={{width: "100%"}} justifyContent="space-between">
             <ListItemIcon><CallIcon call_type={call_type} direction={direction}/></ListItemIcon>
-            <Typography>{formatPhoneNumber(to)}</Typography>
+            <Typography variant="span" sx={{ fontFamily: "Rubik" }}>{formatPhoneNumber(to)}</Typography>
             <Typography>{getTimeOfDay(call_time)}</Typography>
           </Stack>
           {expanded &&
