@@ -13,11 +13,15 @@ const ArchiveUnarchiveAllButton = ({ is_archived, onClick }) => {
     text = "Unarchive All";
   }
 
+  const handleOnClick = () => {
+    onClick(!is_archived);
+  };
+
   return (
     <Button
       variant="outlined"
       startIcon={icon}
-      onClick={onClick}
+      onClick={handleOnClick}
     >
       {text}
     </Button>

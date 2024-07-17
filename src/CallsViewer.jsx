@@ -38,14 +38,14 @@ const CallsViewer = () => {
     );
   };
 
-  const changeAllArchiveStatus = async () => {
-    const promises = calls.map((call) => updateCallById(call.id, !call.is_archived));
+  const changeAllArchiveStatus = async (archive_status) => {
+    const promises = calls.map((call) => updateCallById(call.id, archive_status));
     await Promise.all(promises);
     setCalls((current_calls) => 
       current_calls.map((call) => {
         return {
           ...call,
-          is_archived: !call.is_archived
+          is_archived: archive_status
         };
       })
     );
