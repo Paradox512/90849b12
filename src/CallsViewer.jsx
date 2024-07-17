@@ -4,6 +4,15 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { getAllCalls } from './helpers.js';
 import { Stack } from '@mui/material';
+// import { styled } from '@mui/material/styles';
+
+// styled()
+
+// const tabsStyle = {
+//   "& > .MuiTab-root.Mui-selected" : {
+
+//   }
+// };
 
 const CallsViewer = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -48,8 +57,8 @@ const CallsViewer = () => {
         value={activeTab}
         onChange={(_, newValue) => setActiveTab(newValue)}
       >
-        <Tab value="all" label="All Calls" />
-        <Tab value="archived" label="Archived Calls" />
+        <Tab value="all" label="All" />
+        <Tab value="archived" label="Archived" />
       </Tabs>
       <CallList
         calls={calls.filter((call) => (activeTab==="all") === !call.is_archived)}

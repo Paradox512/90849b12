@@ -9,7 +9,7 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import Unarchive from '@mui/icons-material/Unarchive';
 import { useState } from 'react';
-import { IconButton, Typography } from '@mui/material';
+import { Collapse, IconButton, Typography } from '@mui/material';
 import { updateCallById } from './helpers.js';
 
 const Call = ({ id, created_at, from, to, direction, duration, call_type, is_archived, via, onChangeArchiveStatus }) => {
@@ -75,19 +75,17 @@ const Call = ({ id, created_at, from, to, direction, duration, call_type, is_arc
       sx={{
         p: 0,
         width: "100%",
-        // fontFamily: "Roboto, Helvetica, Arial, sans-serif"
       }}
       onClick={() => setExpanded(!expanded)}
     >
       <ListItemButton>
-        <Stack sx={{width: "100%"}} spacing={2}>
+        <Stack sx={{width: "100%"}}>
           <Stack direction="row" sx={{width: "100%"}} justifyContent="space-between">
             <ListItemIcon><CallIcon call_type={call_type} direction={direction}/></ListItemIcon>
             <Typography variant="span" sx={{ fontFamily: "Rubik" }}>{formatPhoneNumber(to)}</Typography>
             <Typography>{getTimeOfDay(call_time)}</Typography>
           </Stack>
-          {expanded &&
-          <>
+          <Collapse in={expanded}>
             <Stack direction="column" sx={{width: "100%"}} alignItems="center">
             {call_type === "answered" &&
               <Typography variant="body2">
@@ -108,8 +106,7 @@ const Call = ({ id, created_at, from, to, direction, duration, call_type, is_arc
                 {is_archived ? <Unarchive/> : <ArchiveIcon/>}
               </IconButton>
             </Stack>
-          </>
-          }
+          </Collapse>
         </Stack>
       </ListItemButton>
     </ListItem>
