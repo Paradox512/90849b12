@@ -21,13 +21,13 @@ const CallList = ({calls, onChangeArchiveStatus}) => {
       || call_date.getMonth() !== previous_date.getMonth()
       || call_date.getFullYear() !== previous_date.getFullYear()
     ){
-      previous_date = call_date
+      previous_date = call_date;
       if(group.length > 0){
-        body.push(<CallGroup calls={group} onChangeArchiveStatus={onChangeArchiveStatus}/>);
+        body.push(<CallGroup key={body.length} calls={group} onChangeArchiveStatus={onChangeArchiveStatus}/>);
         group = [];
       }
       body.push(
-        <Divider>
+        <Divider key={body.length}>
           <Typography sx={{color: "divider"}}>
             {call_date.toLocaleDateString("en-US", options)}
           </Typography>
@@ -37,7 +37,7 @@ const CallList = ({calls, onChangeArchiveStatus}) => {
     group.push(call);
   });
   if(group.length > 0){
-    body.push(<CallGroup calls={group} onChangeArchiveStatus={onChangeArchiveStatus}/>);
+    body.push(<CallGroup key={body.length} calls={group} onChangeArchiveStatus={onChangeArchiveStatus}/>);
     group = [];
   }
 
