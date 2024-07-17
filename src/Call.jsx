@@ -82,8 +82,8 @@ const Call = ({ id, created_at, from, to, direction, duration, call_type, is_arc
         <Stack sx={{width: "100%"}}>
           <Stack direction="row" sx={{width: "100%"}} justifyContent="space-between">
             <ListItemIcon><CallIcon call_type={call_type} direction={direction}/></ListItemIcon>
-            <Typography variant="span" sx={{ fontFamily: "Rubik" }}>{formatPhoneNumber(to)}</Typography>
-            <Typography>{getTimeOfDay(call_time)}</Typography>
+            <Typography variant="body">{formatPhoneNumber(to)}</Typography>
+            <Typography variant="body2">{getTimeOfDay(call_time)}</Typography>
           </Stack>
           <Collapse in={expanded}>
             <Stack direction="column" sx={{width: "100%"}} alignItems="center">

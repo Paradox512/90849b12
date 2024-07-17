@@ -56,7 +56,7 @@ const CallsViewer = () => {
       spacing={2}
       direction="column"
       alignItems="center"
-      sx={{ width: 400 }}
+      sx={{ width: 450 }}
     >
       <Stack direction="row" justifyContent="space-between" sx={{ width: "100%" }}>
         <Tabs

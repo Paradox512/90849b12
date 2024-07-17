@@ -28,10 +28,7 @@ const CallList = ({calls, onChangeArchiveStatus}) => {
       }
       body.push(
         <Divider>
-          <Typography sx={{
-            fontFamily: "Rubik",
-            color: "GrayText"
-          }}>
+          <Typography sx={{color: "divider"}}>
             {call_date.toLocaleDateString("en-US", options)}
           </Typography>
         </Divider>
