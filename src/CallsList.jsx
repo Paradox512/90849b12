@@ -37,7 +37,7 @@ const CallList = ({calls, onChangeArchiveStatus}) => {
     group.push(call);
   });
   if(group.length > 0){
-    body.push(<CallGroup calls={group}/>);
+    body.push(<CallGroup calls={group} onChangeArchiveStatus={onChangeArchiveStatus}/>);
     group = [];
   }
 
