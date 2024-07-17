@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import CallList from './CallsList.jsx';
-import Grid from '@mui/material/Grid';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import { getAllCalls, resetAllCalls } from './helpers.js';
+import { getAllCalls } from './helpers.js';
+import { Stack } from '@mui/material';
 
 const CallsViewer = () => {
   const [activeTab, setActiveTab] = useState("all");
@@ -29,25 +29,21 @@ const CallsViewer = () => {
   }, []);
 
   return (
-    <Grid
-      container
+    <Stack
       spacing={2}
       direction="column"
       alignItems="center"
+      sx={{ width: 350 }}
     >
-      <Grid item>
-        <Tabs
-          value={activeTab}
-          onChange={(_, newValue) => setActiveTab(newValue)}
-        >
-          <Tab value="all" label="All Calls" />
-          <Tab value="archived" label="Archived Calls" />
-        </Tabs>
-      </Grid>
-      <Grid item>
-        <CallList calls={calls.filter((call) => (activeTab==="all") === !call.is_archived)}/>
-      </Grid>
-    </Grid>
+      <Tabs
+        value={activeTab}
+        onChange={(_, newValue) => setActiveTab(newValue)}
+      >
+        <Tab value="all" label="All Calls" />
+        <Tab value="archived" label="Archived Calls" />
+      </Tabs>
+      <CallList calls={calls.filter((call) => (activeTab==="all") === !call.is_archived)}/>
+    </Stack>
   );
 };
 

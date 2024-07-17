@@ -3,9 +3,16 @@ import Stack from '@mui/material/Stack';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import PhoneIcon from '@mui/icons-material/Phone';
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
+import VideocamIcon from '@mui/icons-material/Videocam';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import { useState } from 'react';
+import { IconButton, Typography } from '@mui/material';
 
 const Call = ({ id, created_at, from, to, call_type }) => {
+
+  const [expanded, setExpanded] = useState(false);
 
   const getTimeOfDay = (date) => {
     let hour = date.getHours();
@@ -39,16 +46,25 @@ const Call = ({ id, created_at, from, to, call_type }) => {
   const call_time = new Date(created_at);
 
   return (
-    <ListItem sx={{ p: 0 }}>
+    <ListItem
+      sx={{ p: 0, width: "100%" }}
+      onClick={() => setExpanded(!expanded)}
+    >
       <ListItemButton>
-        <Stack
-          sx={{ width: "100%" }}
-          direction="row"
-          justifyContent="space-between"
-        >
-          <ListItemIcon><CallIcon call_type={call_type}/></ListItemIcon>
-          <ListItemText primary={formatPhoneNumber(to)}/>
-          <ListItemText primary={getTimeOfDay(call_time)}/>
+        <Stack sx={{width: "100%"}} spacing={2}>
+          <Stack direction="row" sx={{width: "100%"}} justifyContent="space-between">
+            <ListItemIcon><CallIcon call_type={call_type}/></ListItemIcon>
+            <Typography>{formatPhoneNumber(to)}</Typography>
+            <Typography>{getTimeOfDay(call_time)}</Typography>
+          </Stack>
+          {expanded &&
+            <Stack direction="row" sx={{width: "100%"}} justifyContent="space-evenly">
+              <IconButton disabled><PhoneIcon/></IconButton>
+              <IconButton disabled><ChatBubbleIcon/></IconButton>
+              <IconButton disabled><VideocamIcon/></IconButton>
+              <IconButton onClick={(e) => { e.stopPropagation() }}><ArchiveIcon/></IconButton>
+            </Stack>
+          }
         </Stack>
       </ListItemButton>
     </ListItem>

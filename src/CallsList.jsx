@@ -38,6 +38,7 @@ const CallList = ({calls}) => {
     <Stack
       spacing={2}
       alignItems="stretch"
+      sx={{ width: "100%" }}
     >
       {body}
     </Stack>
