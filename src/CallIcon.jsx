@@ -1,13 +1,15 @@
-import PhoneMissedIcon from '@mui/icons-material/PhoneMissed';
 import VoicemailIcon from '@mui/icons-material/Voicemail';
-import PhoneIcon from '@mui/icons-material/Phone';
+import CallMissedIcon from '@mui/icons-material/CallMissed';
+import CallMissedOutgoingIcon from '@mui/icons-material/CallMissedOutgoing';
+import CallMadeIcon from '@mui/icons-material/CallMade';
+import CallReceivedIcon from '@mui/icons-material/CallReceived';
 
-const CallIcon = ({ call_type }) => {
+const CallIcon = ({ call_type, direction }) => {
   switch(call_type){
     case "missed":
-      return <PhoneMissedIcon/>;
+      return direction === "outbound" ? <CallMissedOutgoingIcon/> : <CallMissedIcon/>;
     case "answered":
-      return <PhoneIcon/>;
+      return direction === "outbound" ? <CallMadeIcon/> : <CallReceivedIcon/>;
     case "voicemail":
       return <VoicemailIcon/>;
   }

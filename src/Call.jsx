@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { IconButton, Typography } from '@mui/material';
 import { updateCallById } from './helpers.js';
 
-const Call = ({ id, created_at, from, to, call_type, is_archived, onChangeArchiveStatus }) => {
+const Call = ({ id, created_at, from, to, direction, call_type, is_archived, onChangeArchiveStatus }) => {
 
   const [expanded, setExpanded] = useState(false);
 
@@ -65,7 +65,7 @@ const Call = ({ id, created_at, from, to, call_type, is_archived, onChangeArchiv
       <ListItemButton>
         <Stack sx={{width: "100%"}} spacing={2}>
           <Stack direction="row" sx={{width: "100%"}} justifyContent="space-between">
-            <ListItemIcon><CallIcon call_type={call_type}/></ListItemIcon>
+            <ListItemIcon><CallIcon call_type={call_type} direction={direction}/></ListItemIcon>
             <Typography>{formatPhoneNumber(to)}</Typography>
             <Typography>{getTimeOfDay(call_time)}</Typography>
           </Stack>
