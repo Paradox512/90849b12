@@ -23,7 +23,13 @@ const CallList = ({calls, onChangeArchiveStatus}) => {
     ){
       previous_date = call_date;
       if(group.length > 0){
-        body.push(<CallGroup key={body.length} calls={group} onChangeArchiveStatus={onChangeArchiveStatus}/>);
+        body.push(
+          <CallGroup
+            key={body.length}
+            calls={group}
+            onChangeArchiveStatus={onChangeArchiveStatus}
+          />
+        );
         group = [];
       }
       body.push(
@@ -36,8 +42,15 @@ const CallList = ({calls, onChangeArchiveStatus}) => {
     }
     group.push(call);
   });
+
   if(group.length > 0){
-    body.push(<CallGroup key={body.length} calls={group} onChangeArchiveStatus={onChangeArchiveStatus}/>);
+    body.push(
+      <CallGroup
+        key={body.length}
+        calls={group}
+        onChangeArchiveStatus={onChangeArchiveStatus}
+      />
+    );
     group = [];
   }
 
