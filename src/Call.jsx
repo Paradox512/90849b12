@@ -11,54 +11,12 @@ import Unarchive from '@mui/icons-material/Unarchive';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
 import { Box, Collapse, IconButton, Typography } from '@mui/material';
-import { updateCallById } from './helpers.js';
+import { updateCallById, getTimeOfDay, formatCallDuration, formatPhoneNumber } from './helpers.js';
 
 const Call = ({ id, created_at, from, to, direction, duration, call_type, is_archived, via, onChangeArchiveStatus }) => {
 
   const [expanded, setExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  const getTimeOfDay = (date) => {
-    let hour = date.getHours();
-    let minute = date.getMinutes();
-    let ampm = "AM";
-    if(hour > 12){
-      hour -= 12;
-      ampm = "PM";
-    }
-
-    let formatted = `${hour}:`;
-    if(minute < 10) formatted += "0";
-    formatted += `${minute} ${ampm}`
-
-    return formatted;
-  }
-
-  const formatPhoneNumber = (number) => {
-    number = number.toString();
-    const length = number.length;
-    if(length < 10) return number;
-    let format = `${number.substring(length-4)}`;
-    format = `${number.substring(length-4-3, length-4)} ${format}`;
-    format = `(${number.substring(length-4-3-3, length-4-3)}) ${format}`;
-    if(length > 10) {
-      format = `+${number.substring(0, length-10)} ${format}`;
-    }
-    return format;
-  };
-
-  const formatCallDuration = (callDuration) => {
-    const seconds = callDuration % 60;
-    callDuration = (callDuration - seconds) / 60;
-    const minutes = callDuration % 60;
-    callDuration = (callDuration - minutes) / 60;
-    const hours = callDuration;
-
-    let format = `${seconds} seconds`;
-    if(minutes > 0) format = `${minutes} minutes, ${format}`;
-    if(hours > 0) format = `${hours} hours, ${format}`;
-    return format;
-  };
 
   const changeArchiveStatus = async () => {
     try {

@@ -2,6 +2,7 @@ import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
 import CallGroup from "./CallGroup.jsx";
 import { Typography } from '@mui/material';
+import { formateDate, sameDayOfTheYear } from './helpers.js';
 
 const CallList = ({calls, onChangeArchiveStatus}) => {
 
@@ -11,15 +12,9 @@ const CallList = ({calls, onChangeArchiveStatus}) => {
 
   calls.forEach((call) => {
     const call_date = new Date(call.created_at);
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    };
+    
     if(previous_date === null
-      || call_date.getDate() !== previous_date.getDate()
-      || call_date.getMonth() !== previous_date.getMonth()
-      || call_date.getFullYear() !== previous_date.getFullYear()
+      || sameDayOfTheYear(previous_date, call_date)
     ){
       previous_date = call_date;
       if(group.length > 0){
@@ -35,7 +30,7 @@ const CallList = ({calls, onChangeArchiveStatus}) => {
       body.push(
         <Divider key={body.length}>
           <Typography sx={{color: "divider"}}>
-            {call_date.toLocaleDateString("en-US", options)}
+            {formateDate(call_date)}
           </Typography>
         </Divider>
       );
