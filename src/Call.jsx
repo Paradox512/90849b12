@@ -90,7 +90,7 @@ const Call = ({ id, created_at, from, to, direction, duration, call_type, is_arc
             <Typography variant="body2">{getTimeOfDay(call_time)}</Typography>
           </Stack>
           <Collapse in={expanded}>
-            <Stack direction="column" sx={{width: "100%"}} alignItems="center">
+            <Stack direction="column" sx={{ paddingTop: 2, width: "100%"}} alignItems="center">
             {call_type === "answered" &&
               <Typography variant="body2">
                 {(direction === "inbound" ? "Incoming" : "Outgoing") + " call, " + formatCallDuration(duration)}
