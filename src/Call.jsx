@@ -10,7 +10,7 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 import Unarchive from '@mui/icons-material/Unarchive';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
-import { Box, Collapse, IconButton, Typography } from '@mui/material';
+import { Box, Collapse, Grid, IconButton, Typography } from '@mui/material';
 import { updateCallById, getTimeOfDay, formatCallDuration, formatPhoneNumber } from './helpers.js';
 
 const Call = ({ id, created_at, from, to, direction, duration, call_type, is_archived, via, onChangeArchiveStatus }) => {
@@ -42,11 +42,11 @@ const Call = ({ id, created_at, from, to, direction, duration, call_type, is_arc
     >
       <ListItemButton>
         <Stack sx={{width: "100%"}}>
-          <Stack direction="row" sx={{width: "100%"}} justifyContent="space-between">
-            <ListItemIcon><CallIcon call_type={call_type} direction={direction}/></ListItemIcon>
-            <Typography variant="body">{formatPhoneNumber(to)}</Typography>
-            <Typography variant="body2">{getTimeOfDay(call_time)}</Typography>
-          </Stack>
+          <Box sx={{ width: "100%", display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+            <ListItemIcon sx={{ justifySelf: "flex-start" }}><CallIcon call_type={call_type} direction={direction}/></ListItemIcon>
+            <Typography variant="body" sx={{ justifySelf: "center" }}>{formatPhoneNumber(to)}</Typography>
+            <Typography variant="body2" sx={{ justifySelf: "flex-end" }}>{getTimeOfDay(call_time)}</Typography>
+          </Box>
           <Collapse in={expanded}>
             <Stack direction="column" sx={{ paddingTop: 2, width: "100%"}} alignItems="center">
             {call_type === "answered" &&
