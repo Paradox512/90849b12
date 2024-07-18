@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import Unarchive from '@mui/icons-material/Unarchive';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Box } from '@mui/material';
 
 const ArchiveUnarchiveAllButton = ({ is_archived, onClick }) => {
 
@@ -22,27 +23,29 @@ const ArchiveUnarchiveAllButton = ({ is_archived, onClick }) => {
     setIsLoading(false);
   };
 
-
-  if(isLoading){
-    return (
-      <Button
-        startIcon={<CircularProgress size={20}/>}
-        variant="outlined"
-        disabled
-      >
-        {is_archived ? "Unarchiving" : "Archiving"}
-      </Button>
-    );
-  }
-
   return (
-    <Button
-      variant="outlined"
-      startIcon={icon}
-      onClick={handleOnClick}
-    >
-      {text}
-    </Button>
+    <Box sx={{ m:1, position: "relative" }}>
+      <Button
+        variant="outlined"
+        startIcon={icon}
+        onClick={handleOnClick}
+        disabled={isLoading}
+      >
+        {text}
+      </Button>
+      {isLoading &&
+        <CircularProgress
+          size={20}
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            marginTop: "-10px",
+            marginLeft: "-10px"
+          }}
+        />
+      }
+    </Box>
   );
 };
 
