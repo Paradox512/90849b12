@@ -62,15 +62,18 @@ const CallList = ({calls, onChangeArchiveStatus}) => {
     >
       {body.length > 0 && body}
       {body.length === 0 &&
-        <Typography
-          variant="body"
-          sx={{
-            textAlign: "center",
-            padding: "10px"
-          }}
-        >
-          No calls to display
-        </Typography>
+          <Divider>
+            <Typography
+              variant="body"
+              sx={{
+                textAlign: "center",
+                padding: "10px",
+                color: "divider"
+              }}
+            >
+              No calls to display
+            </Typography>
+          </Divider>
       }
     </Stack>
   );

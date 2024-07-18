@@ -11,6 +11,7 @@ const CallGroup = ({calls, onChangeArchiveStatus}) => {
         borderRadius: "15px",
         border: "1px solid",
         borderColor: "divider",
+        overflow: "hidden"
       }}
     >
       {calls.map((call, index) => 
