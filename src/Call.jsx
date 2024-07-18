@@ -8,13 +8,15 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import Unarchive from '@mui/icons-material/Unarchive';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
-import { Collapse, IconButton, Typography } from '@mui/material';
+import { Box, Collapse, IconButton, Typography } from '@mui/material';
 import { updateCallById } from './helpers.js';
 
 const Call = ({ id, created_at, from, to, direction, duration, call_type, is_archived, via, onChangeArchiveStatus }) => {
 
   const [expanded, setExpanded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getTimeOfDay = (date) => {
     let hour = date.getHours();
@@ -60,8 +62,10 @@ const Call = ({ id, created_at, from, to, direction, duration, call_type, is_arc
 
   const changeArchiveStatus = async () => {
     try {
+      setIsLoading(true);
       await updateCallById(id, !is_archived);
       onChangeArchiveStatus(id);
+      setIsLoading(false);
       setExpanded(false);
     } catch(error) {
       console.error(error);
@@ -102,9 +106,23 @@ const Call = ({ id, created_at, from, to, direction, duration, call_type, is_arc
               <IconButton disabled><PhoneIcon/></IconButton>
               <IconButton disabled><ChatBubbleIcon/></IconButton>
               <IconButton disabled><VideocamIcon/></IconButton>
-              <IconButton onClick={(e) => { e.stopPropagation(); changeArchiveStatus(); }}>
-                {is_archived ? <Unarchive/> : <ArchiveIcon/>}
-              </IconButton>
+                <Box sx={{ m: 1, position: "relative" }}>
+                  <IconButton disabled={isLoading} onClick={(e) => { e.stopPropagation(); changeArchiveStatus(); }}>
+                   {is_archived ? <Unarchive/> : <ArchiveIcon/>}
+                  </IconButton>
+                  {isLoading &&
+                    <CircularProgress
+                      size={32}
+                      sx={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        marginTop: "-16px",
+                        marginLeft: "-16px"
+                      }}
+                    />
+                  }
+                </Box>
             </Stack>
           </Collapse>
         </Stack>
