@@ -20,7 +20,7 @@ export const darkTheme = createTheme({
     secondary: {
       main: '#008cf0',
     },
-    divider: '#9e9e9e',
+    divider: '#757575',
     logo: '#bdbdbd'
   }
 });
